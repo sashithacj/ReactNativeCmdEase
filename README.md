@@ -15,3 +15,6 @@ React native project manager written in C#
 * Manage adb processes.
 * Clean build, Run project debug & release in an emulator, Build android app bundle files
 * Easy interface to manage all commandline tasks
+
+## Contributing
+If you found bugs or any improvements, Please write me: sashithachamara@live.com
