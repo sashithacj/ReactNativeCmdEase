@@ -1,0 +1,11 @@
+D:\ReactNativeCmdEase\ReactNativeCmdEase\bin\Debug\ReactNativeCmdEase.exe
+D:\ReactNativeCmdEase\ReactNativeCmdEase\bin\Debug\ReactNativeCmdEase.pdb
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.csprojAssemblyReference.cache
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.Form1.resources
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.Properties.Resources.resources
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.csproj.GenerateResource.cache
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.csproj.CoreCompileInputs.cache
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.exe
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.pdb
+D:\ReactNativeCmdEase\ReactNativeCmdEase\bin\Debug\Newtonsoft.Json.xml
+D:\ReactNativeCmdEase\ReactNativeCmdEase\obj\Debug\ReactNativeCmdEase.csproj.CopyComplete
