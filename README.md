@@ -1,6 +1,8 @@
 # ReactNativeManagerEase
 React native project manager written in C#
 
+![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/blob/master/react-native-manager-ease.png)
+
 ## Features
 * Check if NodeJS, NPM, Yarn, react-native-cli, Java & Android SDK installed.
 * Check & displays Java directory in Path environment variable.
