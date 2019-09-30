@@ -28,7 +28,6 @@ namespace ReactNativeCmdEase
 
             textBox1.Text = Application.StartupPath;
             checkDirectory(textBox1.Text);
-            timer1.Enabled = true;
             jhome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.User);
             if(jhome == "") jhome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.Machine);
             textBox4.Text = jhome;
@@ -44,6 +43,7 @@ namespace ReactNativeCmdEase
                 if (pathEnv.Contains("Java"))
                     textBox7.Text = pathEnv;
             }
+            timer1.Enabled = true;
         }
 
         private void parseData(string output)
