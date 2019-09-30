@@ -1,5 +1,6 @@
 # ReactNativeManagerEase
-[![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/dwyl/esta)
+[![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/dwyl/esta) [![codecov.io Code Coverage](https://img.shields.io/codecov/c/github/dwyl/hapi-auth-jwt2.svg?maxAge=2592000)](https://codecov.io/github/dwyl/hapi-auth-jwt2?branch=master)
+
 React native project manager written in C#
 
 ![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/master/react-native-manager-ease.png)
