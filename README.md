@@ -1,4 +1,5 @@
 # ReactNativeManagerEase
+[![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/dwyl/esta)
 React native project manager written in C#
 
 ![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/master/react-native-manager-ease.png)
