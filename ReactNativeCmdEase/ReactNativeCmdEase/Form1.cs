@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace ReactNativeCmdEase
 {
@@ -20,6 +23,7 @@ namespace ReactNativeCmdEase
         }
 
         string jhome, ahome, emulatorp;
+        public static string projectdir;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -27,7 +31,8 @@ namespace ReactNativeCmdEase
                 File.WriteAllBytes(Path.Combine(Application.StartupPath, "Newtonsoft.Json.dll"), Properties.Resources.Newtonsoft_Json);
 
             textBox1.Text = Application.StartupPath;
-            checkDirectory(textBox1.Text);
+            projectdir = Application.StartupPath;
+
             jhome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.User);
             if(jhome == "") jhome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.Machine);
             textBox4.Text = jhome;
@@ -43,6 +48,8 @@ namespace ReactNativeCmdEase
                 if (pathEnv.Contains("Java"))
                     textBox7.Text = pathEnv;
             }
+
+            checkDirectory(textBox1.Text);
             timer1.Enabled = true;
         }
 
@@ -97,6 +104,7 @@ namespace ReactNativeCmdEase
         private void checkDirectory(string dpath)
         {
             textBox1.Text = dpath;
+            projectdir = dpath;
             string jsonpath = Path.Combine(dpath, "package.json");
             bool errors = false;
             if (File.Exists(jsonpath))
@@ -123,21 +131,38 @@ namespace ReactNativeCmdEase
                     //button9.Enabled = true;
                     //button10.Enabled = true;
                     //button13.Enabled = true;
-                    //button14.Enabled = true;
+                    //button24.Enabled = true;
                     button15.Enabled = true;
                     button16.Enabled = true;
+                    button26.Enabled = true;
 
+                    comboBox3.Enabled = true;
+
+                    comboBox3.Items.Clear();
+                    comboBox3.Text = "react-native";
+                    foreach (JProperty x in json["dependencies"])
+                    {
+                        //if((string)x.Name != "react" && (string)x.Name != "react-native")
+                        comboBox3.Items.Add((string)x.Name);
+                    }
+
+                    textBox6.Text = "";
                     if (File.Exists(Path.Combine(dpath, "yarn.lock")))
                     {
                         textBox6.Text = "Yarn";
                         
                     }
-                    else if(File.Exists(Path.Combine(dpath, "package-lock.json")))
+
+                    if(File.Exists(Path.Combine(dpath, "package-lock.json")))
                     {
-                        textBox6.Text = "Npm";
-                        
+                        if(textBox6.Text == "")
+                            textBox6.Text = "Npm";
+                        else
+                            textBox6.Text = textBox6.Text + " + Npm";
+
                     }
-                    else
+                    
+                    if(textBox6.Text == "")
                     {
                         textBox6.Text = "[unknown]";
                     }
@@ -167,9 +192,11 @@ namespace ReactNativeCmdEase
                 button7.Enabled = false;
                 button8.Enabled = false;
                 //button13.Enabled = false;
-                //button14.Enabled = false;
+                button24.Enabled = false;
                 button15.Enabled = false;
                 button16.Enabled = false;
+                comboBox3.Enabled = false;
+                button26.Enabled = false;
                 //button9.Enabled = false;
                 //button10.Enabled = false;
                 textBox3.Text = "[latest]";
@@ -309,13 +336,15 @@ namespace ReactNativeCmdEase
 
         private void Button5_Click(object sender, EventArgs e)
         {
+            /*
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.Arguments = "/c rm -rf node_modules";
             cmd.StartInfo.WorkingDirectory = textBox1.Text;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
-            //cmd.WaitForExit();
+            //cmd.WaitForExit(); */
+            Process.Start("cmd.exe", "/c rmdir /Q /S \"" + Path.Combine(textBox1.Text, "node_modules") + "\"");
         }
 
         private void Button6_Click_1(object sender, EventArgs e)
@@ -457,6 +486,12 @@ namespace ReactNativeCmdEase
 
             if (j.Length > 0)
                 label17.Text = label17.Text + " [" + j.Length + " java running]";
+
+            if (Directory.Exists(Path.Combine(textBox1.Text, "node_modules")) && button6.Enabled)
+                button5.Enabled = true;
+            else
+                button5.Enabled = false;
+
         }
 
         private void Button13_Click(object sender, EventArgs e)
@@ -495,6 +530,366 @@ namespace ReactNativeCmdEase
         private void Button16_Click(object sender, EventArgs e)
         {
             Process.Start(Path.Combine(textBox1.Text, @"android\app\build\outputs"));
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (Directory.Exists(textBox1.Text))
+                button17.Enabled = true;
+            else
+                button17.Enabled = false;
+        }
+
+        private void Button17_Click(object sender, EventArgs e)
+        {
+            Process.Start(textBox1.Text);
+        }
+
+        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //validate();
+        }
+
+        private void ComboBox3_TextChanged(object sender, EventArgs e)
+        {
+            label29.ForeColor = Color.Black;
+            label28.Text = "N/A";
+            label30.Text = "N/A";
+            label32.Text = "N/A";
+            label34.Text = "N/A";
+            label28.ForeColor = Color.Black;
+            label28.Cursor = Cursors.Default;
+            button22.Enabled = false;
+            button23.Enabled = false;
+            button18.Enabled = false;
+            button19.Enabled = false;
+            button20.Enabled = false;
+            button21.Enabled = false;
+            timer3.Enabled = false;
+            timer3.Enabled = true;
+        }
+
+        private void validate()
+        {
+            string jsonpath = Path.Combine(textBox1.Text, "package.json");
+            bool errors = false;
+            if (File.Exists(jsonpath))
+            {
+                try
+                {
+                    var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(jsonpath));
+                    bool packageExists = false;
+                    foreach (JProperty x in json["dependencies"])
+                    {
+                        if ((string)x.Name == comboBox3.Text)
+                            packageExists = true;
+                    }
+
+                    string version = "0.0.0";
+                    if (packageExists)
+                    {
+                        button20.Enabled = true;
+                        button21.Enabled = true;
+                        version = json["dependencies"][comboBox3.Text];
+                        version = version.Replace("^", "");
+                        label32.Text = version;
+                        label34.Text = "Installed";
+                    }
+                    else
+                    {
+                        button20.Enabled = false;
+                        button21.Enabled = false;
+                        label32.Text = "N/A";
+                        label34.Text = "Not Installed";
+                    }
+
+                    if(comboBox3.Text != "")
+                    {
+                        label29.Text = "[checking]";
+                        label29.ForeColor = Color.DarkBlue;
+                        string searchingpackage = comboBox3.Text;
+                        
+                        Task task = new Task(delegate { DoAsyncOperation(searchingpackage, packageExists, version); });
+                        task.Start();
+                    }
+                    else
+                    {
+                        label29.Text = "[not selected]";
+                        label29.ForeColor = Color.Black;
+                        label28.Text = "N/A";
+                        label30.Text = "N/A";
+                        label34.Text = "N/A";
+                        label28.ForeColor = Color.Black;
+                        label28.Cursor = Cursors.Default;
+                        button22.Enabled = false;
+                        button23.Enabled = false;
+                        button18.Enabled = false;
+                        button19.Enabled = false;
+                    }
+                    
+                }
+                catch
+                {
+                    errors = true;
+                }
+            }
+
+            if (!File.Exists(jsonpath) || errors)
+            {
+                label29.Text = "[not selected]";
+                label29.ForeColor = Color.Black;
+                label28.Text = "N/A";
+                label30.Text = "N/A";
+                label32.Text = "N/A";
+                label34.Text = "N/A";
+                label28.ForeColor = Color.Black;
+                label28.Cursor = Cursors.Default;
+                button20.Enabled = false;
+                button21.Enabled = false;
+                button18.Enabled = false;
+                button19.Enabled = false;
+                button22.Enabled = false;
+                button23.Enabled = false;
+            }
+        }
+
+        struct CheckingResult
+        {
+            public string packageName;
+            public bool isExists;
+            public string version;
+            public string link;
+        }
+
+
+        private void DoAsyncOperation(string package, bool packageExists, string version)
+        {
+            CheckingResult cr = new CheckingResult();
+            cr.packageName = package;
+            cr.isExists = false;
+            string html = string.Empty;
+            string url = @"http://registry.npmjs.com/-/v1/search?text=" + package + "&size=1";
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                //request.AutomaticDecompression = DecompressionMethods.GZip;
+                request.Timeout = 10000;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    html = reader.ReadToEnd();
+                }
+
+                var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(html);
+                JArray items = (JArray)json["objects"];
+                if(items.Count == 1 && (string)json["objects"][0]["package"]["name"] == package)
+                {
+                    this.BeginInvoke(new MethodInvoker(() => {
+                        label29.Text = "[present]";
+                        label29.ForeColor = Color.Green;
+                        try
+                        {
+                            label28.Text = json["objects"][0]["package"]["links"]["repository"];
+                            cr.link = json["objects"][0]["package"]["links"]["repository"];
+                        }
+                        catch
+                        {
+                            label28.Text = json["objects"][0]["package"]["links"]["npm"];
+                            cr.link = json["objects"][0]["package"]["links"]["npm"];
+                        }
+                        
+                        label30.Text = json["objects"][0]["package"]["version"];
+                        cr.version = json["objects"][0]["package"]["version"];
+                        label28.ForeColor = Color.Blue;
+                        label28.Cursor = Cursors.Hand;
+                        if (!packageExists)
+                        {
+                            button22.Enabled = true;
+                            button23.Enabled = true;
+                            button18.Enabled = false;
+                            button19.Enabled = false;
+                        }
+                        else
+                        {
+                            button22.Enabled = false;
+                            button23.Enabled = false;
+                            if(version != (string)json["objects"][0]["package"]["version"])
+                            {
+                                button18.Enabled = true;
+                                button19.Enabled = true;
+                            }
+                            else
+                            {
+                                button18.Enabled = false;
+                                button19.Enabled = false;
+                            }
+                        }
+                    }));
+                }
+                else
+                {
+                    this.BeginInvoke(new MethodInvoker(() => {
+                        label29.Text = "[not found]";
+                        label29.ForeColor = Color.Red;
+                        label28.Text = "N/A";
+                        label30.Text = "N/A";
+                        label28.ForeColor = Color.Black;
+                        label28.Cursor = Cursors.Default;
+                        button22.Enabled = false;
+                        button23.Enabled = false;
+                        button18.Enabled = false;
+                        button19.Enabled = false;
+                    }));
+                }
+            }
+            catch
+            {
+                this.BeginInvoke(new MethodInvoker(() => {
+                    label29.Text = "[error]";
+                    label29.ForeColor = Color.Red;
+                    label28.Text = "N/A";
+                    label30.Text = "N/A";
+                    label28.ForeColor = Color.Black;
+                    label28.Cursor = Cursors.Default;
+                    button22.Enabled = false;
+                    button23.Enabled = false;
+                    button18.Enabled = false;
+                    button19.Enabled = false;
+                }));
+            }
+            
+
+            //return cr;
+        }
+
+        private void Label28_Click(object sender, EventArgs e)
+        {
+            if(label28.Cursor == Cursors.Hand)
+            {
+                Process.Start(label28.Text);
+            }
+        }
+
+        private void Button23_Click(object sender, EventArgs e)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c yarn add " + comboBox3.Text;
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Button22_Click(object sender, EventArgs e)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c npm install " + comboBox3.Text;
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Button21_Click(object sender, EventArgs e)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c yarn remove " + comboBox3.Text;
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Button20_Click(object sender, EventArgs e)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c npm uninstall " + comboBox3.Text;
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Button18_Click(object sender, EventArgs e)
+        {
+            //yarn upgrade left - pad--latest
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c yarn upgrade " + comboBox3.Text + " --latest";
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Button19_Click(object sender, EventArgs e)
+        {
+            //npm update --save package_name
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/c npm install --save " + comboBox3.Text;
+            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.WaitForExit();
+            string package = comboBox3.Text;
+            checkDirectory(textBox1.Text);
+            comboBox3.Text = package;
+        }
+
+        private void Timer3_Tick(object sender, EventArgs e)
+        {
+            timer3.Enabled = false;
+            validate();
+        }
+
+        private void Button26_Click(object sender, EventArgs e)
+        {
+            Form2 f = new Form2();
+            f.ShowDialog();
+        }
+
+        private void Button24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button24_Click_1(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            f.ShowDialog();
         }
 
         private void Button10_Click(object sender, EventArgs e)
