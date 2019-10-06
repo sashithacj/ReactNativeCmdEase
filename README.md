@@ -5,7 +5,7 @@ React native project manager written in C#
 
 
 
-![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/master/react-native-manager-ease.png)
+![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/master/rnme-v2.png)
 
 ## Features
 * Check if NodeJS, NPM, Yarn, react-native-cli, Java & Android SDK installed.
@@ -15,6 +15,11 @@ React native project manager written in C#
 * Init React native project with latest or specified version.
 * Forces user to use same package manager.
 * NPM clean, install, update & Yarn install by checking files.
+* Search for packages in NPM registry.
+* Install, update, uninstall individual packages.
+* Generate release keystores & save config
+* Gradle config parser
+* AES Encryption
 * Show created android emulators, Start them normally or after wiping emulator data.
 * Manage adb processes.
 * Clean build, Run project debug & release in an emulator, Build android app bundle files
