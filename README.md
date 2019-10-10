@@ -18,8 +18,8 @@ React native project manager written in C#
 * Search for packages in NPM registry.
 * Install, update, uninstall individual packages.
 * Generate release keystores & save config
-* Gradle config parser
-* AES Encryption
+* Writing settings into gradle config files
+* Storing keystore credentials with AES encryption
 * Show created android emulators, Start them normally or after wiping emulator data.
 * Manage adb processes.
 * Clean build, Run project debug & release in an emulator, Build android app bundle files
