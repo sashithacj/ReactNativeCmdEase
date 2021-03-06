@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.ListView;
 
 namespace ReactNativeCmdEase
 {
@@ -23,9 +27,33 @@ namespace ReactNativeCmdEase
 
         string jhome, ahome, emulatorp;
         public static string projectdir;
+        Stopwatch stopwatch = new Stopwatch();
+        double correction_time = 0;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string AskWhenLoading = "true";
+            RegistryKey key3 = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\ReactNativeCmdEase");
+            if (key3 != null)
+            {
+                AskWhenLoading = key3.GetValue("AskWhenLoading") as string;
+                if (string.IsNullOrEmpty(AskWhenLoading))
+                {
+                    DialogResult dialogResult = MessageBox.Show("Do you want to be asked for prerequirements when your system is not fit for React Native Apps developing?", "Ask for Prerequirements", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        key3.SetValue("AskWhenLoading", "true");
+                        AskWhenLoading = "true";
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        key3.SetValue("AskWhenLoading", "false");
+                        AskWhenLoading = "false";
+                    }
+                }
+            }
+
+
             if (!File.Exists(Path.Combine(Application.StartupPath, "Newtonsoft.Json.dll")))
                 File.WriteAllBytes(Path.Combine(Application.StartupPath, "Newtonsoft.Json.dll"), Properties.Resources.Newtonsoft_Json);
 
@@ -83,59 +111,72 @@ namespace ReactNativeCmdEase
             }
             catch
             {
-                DialogResult dialogResult = MessageBox.Show("Java Developement Kit cannot be found, Do you want to install JDK 8 now? " +
-                    Environment.NewLine + "(If YES, this program will be closed & JDK installation will be started. You need to reopen this program after installation is finished)",
-                    "Install JDK 8", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                /*
+                if(AskWhenLoading == "true" && false)
                 {
-                    if (!File.Exists(Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe")))
-                        File.WriteAllBytes(Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe"), Properties.Resources.jdk_8u261_windows_x64);
-                    Process p = new Process();
-                    p.StartInfo.FileName = Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe");
-                    p.StartInfo.UseShellExecute = true;
-                    p.StartInfo.Verb = "runas";
-                    p.Start();
-                    Application.Exit();
-                }
-                else if (dialogResult == DialogResult.No)
-                {
+                    DialogResult dialogResult = MessageBox.Show("Java Developement Kit cannot be found, Do you want to install JDK 8 now? " +
+                        Environment.NewLine + "(If YES, this program will be closed & JDK installation will be started. You need to reopen this program after installation is finished)",
+                        "Install JDK 8", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        if (!File.Exists(Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe")))
+                            File.WriteAllBytes(Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe"), Properties.Resources.jdk_8u261_windows_x64);
+                        Process p = new Process();
+                        p.StartInfo.FileName = Path.Combine(Application.StartupPath, "jdk-8u261-windows-x64.exe");
+                        p.StartInfo.UseShellExecute = true;
+                        p.StartInfo.Verb = "runas";
+                        p.Start();
+                        Application.Exit();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
 
-                }
+                    }
+                }*/
+                
             }
 
             if (jhome != suj && !string.IsNullOrEmpty(suj))
             {
-                DialogResult dialogResult = MessageBox.Show("Current JAVA_HOME variable: " + jhome +
-                    Environment.NewLine + "Suggested JAVA_HOME variable: " + suj +
-                    Environment.NewLine + "Do you agree with this variable change?",
-                    "Latest JDK (JAVA_HOME) Mismatch", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                if (AskWhenLoading == "true")
                 {
-                    Environment.SetEnvironmentVariable("JAVA_HOME", suj, EnvironmentVariableTarget.User);
-                    jhome = suj;
-                }
-                else if (dialogResult == DialogResult.No)
-                {
+                    DialogResult dialogResult = MessageBox.Show("Current JAVA_HOME variable: " + jhome +
+                        Environment.NewLine + "Suggested JAVA_HOME variable: " + suj +
+                        Environment.NewLine + "Do you agree with this variable change?",
+                        "Latest JDK (JAVA_HOME) Mismatch", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Environment.SetEnvironmentVariable("JAVA_HOME", suj, EnvironmentVariableTarget.User);
+                        jhome = suj;
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
 
+                    }
                 }
+                
             }
 
             string sua = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Android\\Sdk");
             if (ahome != sua && !string.IsNullOrEmpty(sua) && Directory.Exists(sua))
             {
-                DialogResult dialogResult = MessageBox.Show("Current ANDROID_HOME variable: " + ahome +
-                    Environment.NewLine + "Suggested ANDROID_HOME variable: " + sua +
-                    Environment.NewLine + "Do you agree with this variable change?",
-                    "Latest ASDK (ANDROID_HOME) Mismatch", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                if (AskWhenLoading == "true")
                 {
-                    Environment.SetEnvironmentVariable("ANDROID_HOME", sua, EnvironmentVariableTarget.User);
-                    ahome = sua;
-                }
-                else if (dialogResult == DialogResult.No)
-                {
+                    DialogResult dialogResult = MessageBox.Show("Current ANDROID_HOME variable: " + ahome +
+                        Environment.NewLine + "Suggested ANDROID_HOME variable: " + sua +
+                        Environment.NewLine + "Do you agree with this variable change?",
+                        "Latest ASDK (ANDROID_HOME) Mismatch", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Environment.SetEnvironmentVariable("ANDROID_HOME", sua, EnvironmentVariableTarget.User);
+                        ahome = sua;
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
 
+                    }
                 }
+                
             }
 
             if (ahome == null) ahome = "";
@@ -155,23 +196,36 @@ namespace ReactNativeCmdEase
 
             if (!is_found && Directory.Exists(platform_tools_dir))
             {
-                DialogResult dialogResult = MessageBox.Show("Do you agree to add android platform-tools directory to PATH environment variable?" +
-                    Environment.NewLine + "Suggested plaform tools directory: " + platform_tools_dir,
-                    "Android platform tools variable Not found", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                if (AskWhenLoading == "true")
                 {
-                    Environment.SetEnvironmentVariable("PATH", originalPathEnv + platform_tools_dir + Path.PathSeparator, EnvironmentVariableTarget.User);
-                    textBox7.Text = platform_tools_dir;
-                }
-                else if (dialogResult == DialogResult.No)
-                {
+                    DialogResult dialogResult = MessageBox.Show("Do you agree to add android platform-tools directory to PATH environment variable?" +
+                        Environment.NewLine + "Suggested plaform tools directory: " + platform_tools_dir,
+                        "Android platform tools variable Not found", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Environment.SetEnvironmentVariable("PATH", originalPathEnv + platform_tools_dir + Path.PathSeparator, EnvironmentVariableTarget.User);
+                        textBox7.Text = platform_tools_dir;
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
 
+                    }
                 }
+                
             }
 
-            emulatorp = Path.Combine(ahome, @"tools\emulator.exe");
+            emulatorp = Path.Combine(ahome, @"emulator\emulator.exe");
             textBox4.Text = jhome;
             textBox5.Text = ahome;
+
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            label6.Text = textInfo.ToTitleCase(System.Environment.UserName + "-" + Environment.MachineName);
+            stopwatch.Start();
+
+
+
+            new Task(() => { SendTimerData(false); }).Start();
+            new Task(()=> { Button10_Click(e, new EventArgs()); }).Start();
 
             /*
             jhome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.User);
@@ -191,7 +245,7 @@ namespace ReactNativeCmdEase
             }*/
 
             checkDirectory(textBox1.Text);
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
 
             RegistryKey key2 = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\ReactNativeCmdEase");
             if (key2 != null)
@@ -199,9 +253,9 @@ namespace ReactNativeCmdEase
                 string mood = key2.GetValue("mood") as string;
                 if (string.IsNullOrEmpty(mood))
                 {
-                    activateLightMood();
-                    radioButton1.Checked = true;
-                    radioButton2.Checked = false;
+                    activateDarkMood();
+                    radioButton1.Checked = false;
+                    radioButton2.Checked = true;
                 }
                 else if (mood == "light")
                 {
@@ -217,16 +271,95 @@ namespace ReactNativeCmdEase
                 }
                 else
                 {
-                    activateLightMood();
-                    radioButton1.Checked = true;
-                    radioButton2.Checked = false;
+                    activateDarkMood();
+                    radioButton1.Checked = false;
+                    radioButton2.Checked = true;
                 }
 
             }
+
+            /*for (int i = 0; i < 256; i++)
+            {
+                listView1.Items.Add((i + 3 + i.ToString().Length).ToString() + " - " +  RandomString(i));
+            }*/
+
+            //Debug.WriteLine("Round - " + Math.Round(3.14));
+            //Debug.WriteLine("Ceiling - " + Math.Ceiling(3.14));
+            //Debug.WriteLine("Floor - " + Math.Floor(3.14));
+            MenuItem m1 = new MenuItem("Copy the text..");
+            m1.Click += delegate (object sender2, EventArgs e2) {
+                try
+                {
+                    Clipboard.SetText(listView1.SelectedItems[0].Text);
+                }
+                catch { }
+            };
+            cm.MenuItems.Add(m1);
+
+            MenuItem m2 = new MenuItem("Search on Google..");
+            m2.Click += delegate (object sender2, EventArgs e2) {
+                try
+                {
+                    System.Diagnostics.Process.Start("http://www.google.com/search?q=" + System.Uri.EscapeDataString(listView1.SelectedItems[0].Text));
+                }
+                catch { }
+            };
+            cm.MenuItems.Add(m2);
+
+            try {
+                string deskDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string shortcutAddress = Path.Combine(deskDir + @"\RNCMDE v" + Application.ProductVersion.Split(new[] { '.' }).First() + ".lnk");
+                foreach (string file in Directory.EnumerateFiles(deskDir, "*.lnk", SearchOption.TopDirectoryOnly).Where(s => s.Contains("RNCMDE v")).ToArray())
+                {
+                    if(!shortcutAddress.Equals(file))
+                    File.Delete(file);
+                }
+                CreateShortcut(shortcutAddress);
+            } catch { }
+        }
+
+
+    private void CreateShortcut(string shortcutAddress)
+    {
+        //object shDesktop = (object)"Desktop";
+        IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+        //string shortcutAddress = (string)shell.SpecialFolders.Item(ref shDesktop) + @"\RNCMDE v" + Application.ProductVersion.Split(new[] { '.' }).First() +".lnk";
+        IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
+        shortcut.Description = "React Native CMD Ease";
+        shortcut.TargetPath = Application.ExecutablePath;
+        shortcut.Save();
+    }
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int GetWindowTextLength(IntPtr hWnd);
+
+        private static string GetCaptionOfActiveWindow()
+        {
+            var strTitle = string.Empty;
+            try
+            {
+                var handle = GetForegroundWindow();
+                var intLength = GetWindowTextLength(handle) + 1;
+                var stringBuilder = new StringBuilder(intLength);
+                if (GetWindowText(handle, stringBuilder, intLength) > 0)
+                {
+                    strTitle = stringBuilder.ToString();
+                }
+            }
+            catch { }
+
+            return strTitle;
         }
 
         private void parseData(string output)
         {
+            /*
             if (output.Contains("nodex") && output.Contains("npmx") && output.Contains("yarnx") &&
                 output.Contains("reactx"))
             {
@@ -271,6 +404,7 @@ namespace ReactNativeCmdEase
                 label13.Text = "Error occured when checking";
                 label14.Text = "Error occured when checking";
             }
+            */
         }
 
         private void checkDirectory(string dpath)
@@ -380,7 +514,7 @@ namespace ReactNativeCmdEase
                 button7.Enabled = false;
                 button8.Enabled = false;
                 //button13.Enabled = false;
-                button24.Enabled = false;
+                //button24.Enabled = false;
                 button15.Enabled = false;
                 button16.Enabled = false;
                 comboBox3.Enabled = false;
@@ -518,6 +652,7 @@ namespace ReactNativeCmdEase
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
+            /*
             timer1.Enabled = false;
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -575,6 +710,7 @@ namespace ReactNativeCmdEase
             {
                 label24.Text = "Not Installed";
             }
+            */
         }
 
         private void Button6_Click(object sender, EventArgs e)
@@ -826,11 +962,116 @@ namespace ReactNativeCmdEase
 
         }
 
+        static IEnumerable<string> ChunksUpto(string str, int maxChunkSize)
+        {
+            for (int i = 0; i < str.Length; i += maxChunkSize)
+            {
+                yield return str.Substring(i, Math.Min(maxChunkSize, str.Length - i));
+            }
+        }
+
+        int color_decider = 0;
+
         private void addToConsole(string op, string data, int type = 0)
         {
-
-            listView1.Invoke((MethodInvoker)delegate
+            if (data == null)
             {
+                data = string.Empty;
+            }
+
+            int i = 0;
+            
+            foreach (string chunk in ChunksUpto(data, 140).ToArray())
+            {
+                i++;
+                ListViewItem li = new ListViewItem();
+                li.Text = (i == 1) ? op + ": " + chunk : "    " + chunk;
+
+                if(i > 1)
+                {
+
+                }
+                else
+                {
+                    if(color_decider == 0)
+                    {
+                        color_decider = 1;
+                    }
+                    else
+                    {
+                        color_decider = 0;
+                    }
+                }
+
+                if (type == 0)
+                {
+                    li.BackColor = (color_decider == 0) ? Color.LimeGreen : Color.LightGreen;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 1)
+                {
+                    li.BackColor = (color_decider == 0) ? Color.HotPink : Color.LightPink;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 2)
+                {
+                    li.BackColor = (color_decider == 0) ? Color.LightSteelBlue : Color.LightBlue;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 3)
+                {
+                    li.BackColor = (color_decider == 0) ? Color.LightGoldenrodYellow : Color.Yellow;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 4)
+                {
+                    li.BackColor = (color_decider == 0) ? Color.IndianRed : Color.Red;
+                    li.ForeColor = Color.Black;
+                }
+
+
+                lvic.Add(li);
+            }
+
+            /*
+            for (int i = 0; i < factor; i++)
+            {
+                int pointer = i * 140;
+
+                ListViewItem li = new ListViewItem();
+                li.Text = op + ": " + data.Substring(pointer, 140);
+                if (type == 0)
+                {
+                    li.BackColor = Color.LightGreen;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 1)
+                {
+                    li.BackColor = Color.LightPink;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 2)
+                {
+                    li.BackColor = Color.LightBlue;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 3)
+                {
+                    li.BackColor = Color.Yellow;
+                    li.ForeColor = Color.Black;
+                }
+                else if (type == 4)
+                {
+                    li.BackColor = Color.Red;
+                    li.ForeColor = Color.Black;
+                }
+
+
+                lvic.Add(li);
+            }
+            */
+
+            /*
                 ListViewItem li = new ListViewItem();
                 li.Text = op + ": " + data;
                 if (type == 0)
@@ -858,12 +1099,12 @@ namespace ReactNativeCmdEase
                     li.BackColor = Color.Red;
                     li.ForeColor = Color.Black;
                 }
-                listView1.BeginUpdate();
-                listView1.Items.Add(li);
-                listView1.EnsureVisible(listView1.Items.Count - 1);
-                listView1.EndUpdate();
-            });
+
+
+            lvic.Add(li);*/
         }
+
+        List<ListViewItem> lvic = new List<ListViewItem>();
 
         private void Button9_Click(object sender, EventArgs e)
         {
@@ -887,7 +1128,7 @@ namespace ReactNativeCmdEase
             cmd.StartInfo.FileName = emulatorp;
             cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             cmd.StartInfo.Arguments = "-avd " + comboBox1.Text + " -no-boot-anim -netspeed full -netdelay none";
-            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.WorkingDirectory = Path.Combine(ahome, "emulator");
             cmd.StartInfo.UseShellExecute = false;
             if (checkBox1.Checked)
             {
@@ -916,7 +1157,7 @@ namespace ReactNativeCmdEase
             cmd.StartInfo.FileName = emulatorp;
             cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             cmd.StartInfo.Arguments = "-avd " + comboBox1.Text + " -wipe-data -no-boot-anim -netspeed full -netdelay none";
-            cmd.StartInfo.WorkingDirectory = textBox1.Text;
+            cmd.StartInfo.WorkingDirectory = Path.Combine(ahome, "emulator");
             cmd.StartInfo.UseShellExecute = false;
             if (checkBox1.Checked)
             {
@@ -984,6 +1225,21 @@ namespace ReactNativeCmdEase
             else
                 button5.Enabled = false;
 
+            if (checkBox3.Checked)
+            {
+                TimeSpan ts = stopwatch.Elapsed;
+                ts = ts.Add(TimeSpan.FromSeconds(correction_time));
+                if (checkBox2.Checked)
+                {
+                    label8.Text = string.Format(label6.Text + ": {0:D2}:{1:D2}:{2:D2}:{3:D2}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+                }
+                else
+                {
+                    label5.Text = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+                }
+
+            }
+            
         }
 
         List<Process> ProList = new List<Process>();
@@ -1064,6 +1320,10 @@ namespace ReactNativeCmdEase
                     {
                         c.Visible = false;
                     }
+                }
+                if (checkBox3.Checked)
+                {
+                    label8.Visible = true;
                 }
                 //cmd.WaitForExit();
             }
@@ -1833,7 +2093,7 @@ namespace ReactNativeCmdEase
 
         private void Button26_Click(object sender, EventArgs e)
         {
-            Form2 f = new Form2();
+            Form2 f = new Form2(radioButton2.Checked ? true : false);
             f.ShowDialog();
         }
 
@@ -1881,19 +2141,27 @@ namespace ReactNativeCmdEase
             cmd.StartInfo.Arguments = "/c npx react-native start";
             cmd.StartInfo.WorkingDirectory = textBox1.Text;
             cmd.StartInfo.UseShellExecute = false;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.RedirectStandardError = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.RedirectStandardInput = false;
-            cmd.EnableRaisingEvents = true;
-            cmd.OutputDataReceived += (a, b) => addToConsole("Node", b.Data, 3);
-            cmd.ErrorDataReceived += (a, b) => addToConsole("Node", b.Data, 4);
-            cmd.Exited += (a, b) => addToConsole("Node", "Node process exited.", 2);
-            cmd.Start();
-            ProList.Add(cmd);
-            addToConsole("Node", "Started the Nod Server with new process (" + cmd.Id + ").", 2);
-            cmd.BeginErrorReadLine();
-            cmd.BeginOutputReadLine();
+            if (checkBox1.Checked)
+            {
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.RedirectStandardError = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.RedirectStandardInput = false;
+                cmd.EnableRaisingEvents = true;
+                cmd.OutputDataReceived += (a, b) => addToConsole("Node", b.Data, 3);
+                cmd.ErrorDataReceived += (a, b) => addToConsole("Node", b.Data, 4);
+                cmd.Exited += (a, b) => addToConsole("Node", "Node process exited.", 2);
+                cmd.Start();
+                ProList.Add(cmd);
+                addToConsole("Node", "Started the Nod Server with new process (" + cmd.Id + ").", 2);
+                cmd.BeginErrorReadLine();
+                cmd.BeginOutputReadLine();
+            }
+            else
+            {
+                cmd.Start();
+            }
+                
         }
 
         private void button27_Click_1(object sender, EventArgs e)
@@ -2099,19 +2367,6 @@ namespace ReactNativeCmdEase
                 }
 
             }
-            foreach (Process p in Process.GetProcessesByName("conhost"))
-            {
-                try
-                {
-                    addToConsole("CLEAN", p.ProcessName + " is terminating to clean the memory", 0);
-                    p.Kill();
-                }
-                catch (Exception ec)
-                {
-                    addToConsole("CLEAN", p.ProcessName + " - " + ec.Message, 1);
-                }
-
-            }
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -2130,12 +2385,17 @@ namespace ReactNativeCmdEase
                         c.Visible = false;
                     }
                 }
+                
+                if (checkBox3.Checked)
+                {
+                    label8.Visible = true;
+                }
             }
             else
             {
                 listView1.Left = 810;
                 listView1.Width = 484;
-                checkBox2.Location = new Point(640, 173);
+                checkBox2.Location = new Point(504, 174);
                 listView1.Columns[0].Width = 450;
                 foreach (Control c in this.Controls)
                 {
@@ -2144,13 +2404,38 @@ namespace ReactNativeCmdEase
                         c.Visible = true;
                     }
                 }
+                label8.Visible = false;
+                if (!checkBox3.Checked)
+                {
+                    label5.Visible = false;
+                    label6.Visible = false;
+                    button29.Visible = false;
+                    /*pictureBox2.Visible = false;
+                    pictureBox3.Visible = false;
+                    pictureBox4.Visible = false;
+                    pictureBox5.Visible = false;
+                    pictureBox6.Visible = false;
+                    pictureBox7.Visible = false;
+                    pictureBox8.Visible = false;*/
+                }
             }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    listView1.ContextMenu = cm;
+                }
+                else
+                {
+                    listView1.ContextMenu = null;
+                }
+
         }
+
+        ContextMenu cm = new ContextMenu();
 
         private void label37_Click(object sender, EventArgs e)
         {
@@ -2158,6 +2443,371 @@ namespace ReactNativeCmdEase
         }
 
         private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            string caption = GetCaptionOfActiveWindow();
+            if(caption.Contains("ReactNativeCmdEase") ||
+                caption.Contains("Android Emulator") ||
+                caption.Contains("Command Prompt") ||
+                caption.Contains("Atom") ||
+                caption.Contains("Visual Studio Code") ||
+                caption.Contains("WinSCP") ||
+                caption.Contains("Adobe Photoshop") ||
+                caption.Contains(".psd "))
+            {
+                if(GetIdleTime2.TotalMilliseconds <= 1000)
+                {
+                    stopwatch.Start();
+                }
+                else
+                {
+                    stopwatch.Stop();
+                }
+            }
+            else
+            {
+                stopwatch.Stop();
+            }
+
+            /*
+
+            if (stopwatch.IsRunning)
+            {
+                int last_loading_number = loading_number;
+
+                if (loading_direction == 1)
+                {
+                    if (loading_number < 8)
+                    {
+                        loading_number++;
+                    }
+                    else
+                    {
+                        loading_direction = 2;
+                        loading_number = 7;
+                    }
+                }
+                else
+                {
+                    if (loading_number > 2)
+                    {
+                        loading_number--;
+                    }
+                    else
+                    {
+                        loading_direction = 1;
+                        loading_number = 3;
+                    }
+                }
+
+                //Control[] c = this.Controls.Find("pictureBox", true);
+                //Console.WriteLine(c.Count());
+                Control now = this.Controls.Find("pictureBox" + loading_number.ToString(), false).First();
+                Control last = this.Controls.Find("pictureBox" + last_loading_number.ToString(), false).First();
+                //Control now = c.Where(s => s.Name.Contains(loading_number.ToString())).First();
+                //Control last = c.Where(s => s.Name.Contains(last_loading_number.ToString())).First();
+                now.BackColor = (radioButton1.Checked) ? Color.Black : Color.White;
+                last.BackColor = (radioButton1.Checked) ? Color.White : Color.Black;
+            }*/
+
+            
+        }
+
+        /*
+        int loading_direction = 1;
+        int loading_number = 2;*/
+
+        internal struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
+
+        [DllImport("User32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+
+        public static uint GetIdleTime()
+        {
+            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
+            GetLastInputInfo(ref lastInPut);
+
+            return ((uint)Environment.TickCount - lastInPut.dwTime);
+        }
+
+        public static long GetLastInputTime()
+        {
+            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
+            if (!GetLastInputInfo(ref lastInPut))
+            {
+                return 0;
+            }
+
+            return lastInPut.dwTime;
+        }
+
+        public static DateTime LastInput
+        {
+            get
+            {
+                DateTime bootTime = DateTime.UtcNow.AddMilliseconds(-Environment.TickCount);
+                DateTime lastInput = bootTime.AddMilliseconds(GetLastInputTime());
+                return lastInput;
+            }
+        }
+
+        public static TimeSpan GetIdleTime2
+        {
+            get
+            {
+                return DateTime.UtcNow.Subtract(LastInput);
+            }
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        string session = RandomString(12);
+
+        private void timer5_Tick(object sender, EventArgs e)
+        {
+            new Task(() => { SendTimerData(false); }).Start();
+        }
+
+        private void SendTimerData(bool IsClosing = false)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create("https://nextgenapps.dev/rncmde_api/update");
+
+                var postData = "uid=" + Uri.EscapeDataString(label6.Text);
+                postData += "&time=" + Uri.EscapeDataString(stopwatch.Elapsed.TotalSeconds.ToString("F0"));
+                postData += "&session=" + Uri.EscapeDataString(session);
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+                request.Timeout = 10000;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                Console.WriteLine(responseString);
+                var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("[" + responseString + "]");
+                correction_time = (double)json[0]["correction"];
+                
+
+                if (IsClosing)
+                {
+                    Console.WriteLine("IsClosing");
+                    
+                    this.Invoke((MethodInvoker)delegate {
+                        Environment.Exit(0);
+                    });
+                }
+            }
+            catch
+            {
+                if (IsClosing)
+                {
+                    this.Invoke((MethodInvoker)delegate {
+                        Environment.Exit(0);
+                    });
+                }
+            }
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            button29.Enabled = false;
+            new Task(getTimerDetails).Start();
+        }
+
+        private void getTimerDetails()
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create("https://nextgenapps.dev/rncmde_api/get");
+
+                var postData = "uid=" + Uri.EscapeDataString(label6.Text);
+                postData += "&time=" + Uri.EscapeDataString(stopwatch.Elapsed.TotalSeconds.ToString("F0"));
+                postData += "&session=" + Uri.EscapeDataString(session);
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+                request.Timeout = 10000;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("[" + responseString + "]");
+                //correction_time = json[0]["info"];
+                //Console.WriteLine(correction_time);
+                
+                listView1.Invoke((MethodInvoker)delegate {
+                    listView1.Items.Clear();
+                });
+
+                int i = 0;
+                foreach (var r in json[0]["info"])
+                {
+                    i++;
+                    //Console.WriteLine(r["uid"]);
+                    ListViewItem li = new ListViewItem();
+                    TimeSpan ts = new TimeSpan().Add(TimeSpan.FromSeconds((double)r["time"]));
+                    DateTime dt = DateTime.ParseExact((string)r["updated_at"], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                    li.Text = string.Format(" [" + i.ToString() + "] " + (string)r["uid"] + ": {0:D2}:{1:D2}:{2:D2}:{3:D2} [Updated " + getRelativeDateTime(dt) + "]", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+                    li.BackColor = Color.Navy;
+                    li.ForeColor = Color.White;
+                    //Console.WriteLine(li.Text);
+                    
+                    listView1.Invoke((MethodInvoker)delegate {
+                        listView1.Items.Add(li);
+                    });
+                }
+
+                ListViewItem li2 = new ListViewItem();
+
+                li2.Text = "Fetched at " + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+                li2.BackColor = Color.DarkGray;
+                li2.ForeColor = Color.White;
+                //Console.WriteLine(li.Text);
+
+                listView1.Invoke((MethodInvoker)delegate {
+                    listView1.Items.Add(li2);
+                });
+
+
+                listView1.Invoke((MethodInvoker)delegate {
+                    listView1.Update();
+                });
+
+                button29.Invoke((MethodInvoker)delegate {
+                    button29.Enabled = true;
+                });
+            }
+            catch
+            {
+                button29.Invoke((MethodInvoker)delegate {
+                    button29.Enabled = true;
+                });
+            }
+        }
+
+        public string getRelativeDateTime(DateTime date)
+        {
+            TimeSpan ts = new TimeSpan(DateTime.UtcNow.Ticks - date.Ticks);
+            if (ts.TotalMinutes < 1)//seconds ago
+                return "just now";
+            if (ts.TotalHours < 1)//min ago
+                return (int)ts.TotalMinutes == 1 ? "1 min ago" : (int)ts.TotalMinutes + " mins ago";
+            if (ts.TotalDays < 1)//hours ago
+                return (int)ts.TotalHours == 1 ? "1 hour ago" : (int)ts.TotalHours + " hours ago";
+            if (ts.TotalDays < 7)//days ago
+                return (int)ts.TotalDays == 1 ? "1 day ago" : (int)ts.TotalDays + " days ago";
+            if (ts.TotalDays < 30.4368)//weeks ago
+                return (int)(ts.TotalDays / 7) == 1 ? "1 week ago" : (int)(ts.TotalDays / 7) + " weeks ago";
+            if (ts.TotalDays < 365.242)//months ago
+                return (int)(ts.TotalDays / 30.4368) == 1 ? "1 month ago" : (int)(ts.TotalDays / 30.4368) + " months ago";
+            //years ago
+            return (int)(ts.TotalDays / 365.242) == 1 ? "1 year ago" : (int)(ts.TotalDays / 365.242) + " yrs ago";
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                this.Hide();
+                e.Cancel = true;
+                new Task(() => { SendTimerData(true); }).Start();
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                stopwatch.Start();
+                timer4.Enabled = true;
+                timer5.Enabled = true;
+                textBox4.Width = 428;
+                textBox5.Width = 428;
+                textBox7.Width = 428;
+                label5.Visible = true;
+                label6.Visible = true;
+                button29.Visible = true;
+                /* pictureBox2.Visible = true;
+                pictureBox3.Visible = true;
+                pictureBox4.Visible = true;
+                pictureBox5.Visible = true;
+                pictureBox6.Visible = true;
+                pictureBox7.Visible = true;
+                pictureBox8.Visible = true;*/
+            }
+            else
+            {
+                stopwatch.Stop();
+                timer4.Enabled = false;
+                timer5.Enabled = false;
+                textBox4.Width = 745;
+                textBox5.Width = 745;
+                textBox7.Width = 745;
+                label5.Visible = false;
+                label6.Visible = false;
+                button29.Visible = false;
+                /*pictureBox2.Visible = false;
+                pictureBox3.Visible = false;
+                pictureBox4.Visible = false;
+                pictureBox5.Visible = false;
+                pictureBox6.Visible = false;
+                pictureBox7.Visible = false;
+                pictureBox8.Visible = false;*/
+            }
+        }
+
+        private void timer6_Tick(object sender, EventArgs e)
+        {
+            if (lvic.Count > 0)
+            {
+                
+                try {
+                    listView1.BeginUpdate();
+                    listView1.Items.AddRange(lvic.ToArray());
+                    lvic.Clear();
+                    listView1.EnsureVisible(listView1.Items.Count - 1);
+                    listView1.EndUpdate();
+                    //color_decider = 0;
+                } catch { }
+                
+            }
+        }
+
+        private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
 
         }
@@ -2175,16 +2825,29 @@ namespace ReactNativeCmdEase
             cmd.Start();
             string output = cmd.StandardOutput.ReadToEnd();
             cmd.WaitForExit();
-            comboBox1.Text = "";
-            comboBox1.Items.Clear();
-            button11.Enabled = false;
-            button12.Enabled = false;
+
+            comboBox1.Invoke((MethodInvoker)delegate {
+                comboBox1.Text = "";
+                comboBox1.Items.Clear();
+            });
+            button11.Invoke((MethodInvoker)delegate {
+                button11.Enabled = false;
+            });
+            button12.Invoke((MethodInvoker)delegate {
+                button12.Enabled = false;
+            });
             foreach (string line in output.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries))
             {
-                comboBox1.Items.Add(line);
-                comboBox1.Text = line;
-                if (!button11.Enabled) button11.Enabled = true;
-                if (!button12.Enabled) button12.Enabled = true;
+                comboBox1.Invoke((MethodInvoker)delegate {
+                    comboBox1.Items.Add(line);
+                    comboBox1.Text = line;
+                });
+                button11.Invoke((MethodInvoker)delegate {
+                    if (!button11.Enabled) button11.Enabled = true;
+                });
+                button12.Invoke((MethodInvoker)delegate {
+                    if (!button12.Enabled) button12.Enabled = true;
+                });
             }
         }
 
