@@ -43,15 +43,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -79,10 +70,6 @@
             this.button15 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.button16 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
@@ -104,7 +91,6 @@
             this.label35 = new System.Windows.Forms.Label();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.button26 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
@@ -119,6 +105,15 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button28 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.button29 = new System.Windows.Forms.Button();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.timer6 = new System.Windows.Forms.Timer(this.components);
+            this.button24 = new System.Windows.Forms.Button();
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -249,105 +244,6 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(14, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(153, 16);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Required installations:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(40, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 16);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "NodeJS";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(40, 47);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 16);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "NPM";
-            this.label8.Click += new System.EventHandler(this.Label8_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(40, 63);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 16);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Yarn";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(42, 112);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(112, 16);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "react-native-cli";
-            this.label10.Visible = false;
-            this.label10.Click += new System.EventHandler(this.label10_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label11.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(175, 31);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 16);
-            this.label11.TabIndex = 18;
-            this.label11.Text = "Checking..";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(175, 47);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(77, 16);
-            this.label12.TabIndex = 19;
-            this.label12.Text = "Checking..";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label13.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(175, 63);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 16);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "Checking..";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label14.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(177, 112);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(77, 16);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "Checking..";
-            this.label14.Visible = false;
-            this.label14.Click += new System.EventHandler(this.Label14_Click);
-            // 
             // timer1
             // 
             this.timer1.Interval = 1;
@@ -358,7 +254,7 @@
             this.textBox4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBox4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.SystemColors.Info;
-            this.textBox4.Location = new System.Drawing.Point(364, 28);
+            this.textBox4.Location = new System.Drawing.Point(47, 28);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(428, 23);
             this.textBox4.TabIndex = 23;
@@ -368,7 +264,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(361, 9);
+            this.label15.Location = new System.Drawing.Point(16, 9);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(235, 16);
             this.label15.TabIndex = 22;
@@ -379,7 +275,7 @@
             this.textBox5.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBox5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.ForeColor = System.Drawing.SystemColors.Info;
-            this.textBox5.Location = new System.Drawing.Point(364, 74);
+            this.textBox5.Location = new System.Drawing.Point(47, 74);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(428, 23);
             this.textBox5.TabIndex = 25;
@@ -389,7 +285,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(361, 55);
+            this.label16.Location = new System.Drawing.Point(16, 55);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(261, 16);
             this.label16.TabIndex = 24;
@@ -425,9 +321,9 @@
             this.button4.Enabled = false;
             this.button4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.SystemColors.Control;
-            this.button4.Location = new System.Drawing.Point(439, 464);
+            this.button4.Location = new System.Drawing.Point(434, 464);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(118, 26);
+            this.button4.Size = new System.Drawing.Size(123, 26);
             this.button4.TabIndex = 28;
             this.button4.Text = "npm update";
             this.button4.UseVisualStyleBackColor = false;
@@ -650,7 +546,7 @@
             this.textBox7.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBox7.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox7.ForeColor = System.Drawing.SystemColors.Info;
-            this.textBox7.Location = new System.Drawing.Point(364, 119);
+            this.textBox7.Location = new System.Drawing.Point(47, 119);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(428, 23);
             this.textBox7.TabIndex = 46;
@@ -660,53 +556,11 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(361, 100);
+            this.label21.Location = new System.Drawing.Point(16, 100);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(377, 16);
             this.label21.TabIndex = 45;
             this.label21.Text = "Android Platform tools dir in PATH environment variable:";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label22.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(175, 80);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(77, 16);
-            this.label22.TabIndex = 48;
-            this.label22.Text = "Checking..";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(40, 80);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(36, 16);
-            this.label23.TabIndex = 47;
-            this.label23.Text = "java";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label24.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(175, 96);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(77, 16);
-            this.label24.TabIndex = 50;
-            this.label24.Text = "Checking..";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(40, 96);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(88, 16);
-            this.label25.TabIndex = 49;
-            this.label25.Text = "Android SDK";
             // 
             // button16
             // 
@@ -966,20 +820,6 @@
             this.button26.UseVisualStyleBackColor = false;
             this.button26.Click += new System.EventHandler(this.Button26_Click);
             // 
-            // button24
-            // 
-            this.button24.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button24.Enabled = false;
-            this.button24.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button24.ForeColor = System.Drawing.SystemColors.Control;
-            this.button24.Location = new System.Drawing.Point(264, 584);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(293, 26);
-            this.button24.TabIndex = 76;
-            this.button24.Text = "Change build settings..";
-            this.button24.UseVisualStyleBackColor = false;
-            this.button24.Click += new System.EventHandler(this.Button24_Click_1);
-            // 
             // button25
             // 
             this.button25.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -1050,12 +890,14 @@
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(810, 28);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(484, 611);
             this.listView1.TabIndex = 82;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
             // 
             // label38
             // 
@@ -1067,7 +909,6 @@
             this.label38.Size = new System.Drawing.Size(0, 16);
             this.label38.TabIndex = 83;
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label38.UseWaitCursor = true;
             // 
             // label39
             // 
@@ -1097,7 +938,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(178, 172);
+            this.radioButton2.Location = new System.Drawing.Point(163, 173);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(95, 20);
             this.radioButton2.TabIndex = 86;
@@ -1109,7 +950,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(363, 153);
+            this.label40.Location = new System.Drawing.Point(307, 153);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(137, 16);
             this.label40.TabIndex = 87;
@@ -1121,11 +962,11 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(391, 173);
+            this.checkBox1.Location = new System.Drawing.Point(315, 174);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(219, 20);
+            this.checkBox1.Size = new System.Drawing.Size(160, 20);
             this.checkBox1.TabIndex = 88;
-            this.checkBox1.Text = "Show In RNCMDEase Console";
+            this.checkBox1.Text = "RNCMDEase Console";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -1147,7 +988,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(640, 173);
+            this.checkBox2.Location = new System.Drawing.Point(504, 174);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(151, 20);
             this.checkBox2.TabIndex = 90;
@@ -1155,12 +996,105 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // timer4
+            // 
+            this.timer4.Enabled = true;
+            this.timer4.Interval = 500;
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(541, 47);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(200, 32);
+            this.label5.TabIndex = 91;
+            this.label5.Text = "00:00:00:00";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(544, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(179, 13);
+            this.label6.TabIndex = 92;
+            this.label6.Text = "Username-ComputerName";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(436, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 16);
+            this.label8.TabIndex = 93;
+            this.label8.Visible = false;
+            // 
+            // timer5
+            // 
+            this.timer5.Enabled = true;
+            this.timer5.Interval = 60000;
+            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            // 
+            // button29
+            // 
+            this.button29.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button29.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button29.Location = new System.Drawing.Point(565, 119);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(147, 23);
+            this.button29.TabIndex = 94;
+            this.button29.Text = "Show Stats";
+            this.button29.UseVisualStyleBackColor = false;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox3.Location = new System.Drawing.Point(677, 174);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(116, 20);
+            this.checkBox3.TabIndex = 95;
+            this.checkBox3.Text = "TimeCounting";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // timer6
+            // 
+            this.timer6.Enabled = true;
+            this.timer6.Interval = 500;
+            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            // 
+            // button24
+            // 
+            this.button24.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button24.Enabled = false;
+            this.button24.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button24.ForeColor = System.Drawing.SystemColors.Control;
+            this.button24.Location = new System.Drawing.Point(264, 584);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(293, 26);
+            this.button24.TabIndex = 96;
+            this.button24.Text = "Sync..";
+            this.button24.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1306, 655);
+            this.Controls.Add(this.button24);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.button29);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button28);
             this.Controls.Add(this.checkBox1);
@@ -1175,7 +1109,6 @@
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.button25);
-            this.Controls.Add(this.button24);
             this.Controls.Add(this.button26);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label35);
@@ -1196,10 +1129,6 @@
             this.Controls.Add(this.label26);
             this.Controls.Add(this.button17);
             this.Controls.Add(this.button16);
-            this.Controls.Add(this.label24);
-            this.Controls.Add(this.label25);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.label23);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.button15);
@@ -1225,15 +1154,6 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
@@ -1252,7 +1172,8 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReactNativeCmdEase v5 by Sashitha";
+            this.Text = "ReactNativeCmdEase v7 by Sashitha";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -1274,15 +1195,6 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label15;
@@ -1310,10 +1222,6 @@
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Label label26;
@@ -1335,7 +1243,6 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Button button26;
-        private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label36;
@@ -1350,6 +1257,15 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button28;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Timer timer4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer timer5;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Timer timer6;
+        private System.Windows.Forms.Button button24;
     }
 }
 

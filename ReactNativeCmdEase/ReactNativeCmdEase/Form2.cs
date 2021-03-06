@@ -15,11 +15,13 @@ namespace ReactNativeCmdEase
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        public Form2(bool IsDarkTheme)
         {
+            IsDark = IsDarkTheme;
             InitializeComponent();
         }
 
+        bool IsDark = true;
         string jhome = "";
         string keytoolpath = "";
         readonly byte[] pb = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(Application.ProductName+Application.UserAppDataPath));
@@ -33,6 +35,41 @@ namespace ReactNativeCmdEase
             textBox7.Text = @"%JAVA_HOME%\bin\keytool.exe";
             keytoolpath = Path.Combine(jhome, @"bin\keytool.exe");
             timer1.Enabled = true;
+
+            if (IsDark)
+                activateDarkMood();
+            else
+                activateLightMood();
+
+        }
+
+        private void activateLightMood()
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c.Name != "pictureBox1")
+                {
+                    c.ForeColor = Color.Black;
+                    c.BackColor = SystemColors.Control;
+                }
+            }
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = Color.Black;
+            //this.listView1.BackColor = Color.White;
+        }
+
+        private void activateDarkMood()
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c.Name != "pictureBox1")
+                {
+                    c.ForeColor = Color.White;
+                    c.BackColor = Color.Black;
+                }
+            }
+            this.BackColor = Color.Black;
+            this.ForeColor = Color.White;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
