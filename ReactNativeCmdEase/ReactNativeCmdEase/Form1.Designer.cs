@@ -43,7 +43,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -105,15 +104,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button28 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.timer5 = new System.Windows.Forms.Timer(this.components);
-            this.button29 = new System.Windows.Forms.Button();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.timer6 = new System.Windows.Forms.Timer(this.components);
-            this.button24 = new System.Windows.Forms.Button();
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -244,11 +236,6 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
             // textBox4
             // 
             this.textBox4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -256,7 +243,7 @@
             this.textBox4.ForeColor = System.Drawing.SystemColors.Info;
             this.textBox4.Location = new System.Drawing.Point(47, 28);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(428, 23);
+            this.textBox4.Size = new System.Drawing.Size(747, 23);
             this.textBox4.TabIndex = 23;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -277,7 +264,7 @@
             this.textBox5.ForeColor = System.Drawing.SystemColors.Info;
             this.textBox5.Location = new System.Drawing.Point(47, 74);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(428, 23);
+            this.textBox5.Size = new System.Drawing.Size(746, 23);
             this.textBox5.TabIndex = 25;
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
@@ -548,7 +535,7 @@
             this.textBox7.ForeColor = System.Drawing.SystemColors.Info;
             this.textBox7.Location = new System.Drawing.Point(47, 119);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(428, 23);
+            this.textBox7.Size = new System.Drawing.Size(746, 23);
             this.textBox7.TabIndex = 46;
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
@@ -844,6 +831,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(152, 23);
             this.textBox8.TabIndex = 79;
+            this.textBox8.Text = "@ui-kitten/template-js";
             // 
             // label36
             // 
@@ -950,7 +938,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(307, 153);
+            this.label40.Location = new System.Drawing.Point(420, 153);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(137, 16);
             this.label40.TabIndex = 87;
@@ -962,7 +950,7 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(315, 174);
+            this.checkBox1.Location = new System.Drawing.Point(469, 174);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(160, 20);
             this.checkBox1.TabIndex = 88;
@@ -988,39 +976,13 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(504, 174);
+            this.checkBox2.Location = new System.Drawing.Point(645, 174);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(151, 20);
             this.checkBox2.TabIndex = 90;
             this.checkBox2.Text = "FullScreen Console";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // timer4
-            // 
-            this.timer4.Enabled = true;
-            this.timer4.Interval = 500;
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(541, 47);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(200, 32);
-            this.label5.TabIndex = 91;
-            this.label5.Text = "00:00:00:00";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(544, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(179, 13);
-            this.label6.TabIndex = 92;
-            this.label6.Text = "Username-ComputerName";
             // 
             // label8
             // 
@@ -1032,56 +994,11 @@
             this.label8.TabIndex = 93;
             this.label8.Visible = false;
             // 
-            // timer5
-            // 
-            this.timer5.Enabled = true;
-            this.timer5.Interval = 60000;
-            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
-            // 
-            // button29
-            // 
-            this.button29.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button29.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button29.Location = new System.Drawing.Point(565, 119);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(147, 23);
-            this.button29.TabIndex = 94;
-            this.button29.Text = "Show Stats";
-            this.button29.UseVisualStyleBackColor = false;
-            this.button29.Click += new System.EventHandler(this.button29_Click);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Checked = true;
-            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(677, 174);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(116, 20);
-            this.checkBox3.TabIndex = 95;
-            this.checkBox3.Text = "TimeCounting";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
-            // 
             // timer6
             // 
             this.timer6.Enabled = true;
             this.timer6.Interval = 500;
             this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
-            // 
-            // button24
-            // 
-            this.button24.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button24.Enabled = false;
-            this.button24.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button24.ForeColor = System.Drawing.SystemColors.Control;
-            this.button24.Location = new System.Drawing.Point(264, 584);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(293, 26);
-            this.button24.TabIndex = 96;
-            this.button24.Text = "Sync..";
-            this.button24.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -1089,12 +1006,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1306, 655);
-            this.Controls.Add(this.button24);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.button29);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button28);
             this.Controls.Add(this.checkBox1);
@@ -1172,7 +1084,7 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReactNativeCmdEase v7 by Sashitha";
+            this.Text = "ReactNativeCmdEase v8 by Sashitha";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1195,7 +1107,6 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBox5;
@@ -1257,15 +1168,8 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button28;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Timer timer4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Timer timer5;
-        private System.Windows.Forms.Button button29;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Timer timer6;
-        private System.Windows.Forms.Button button24;
     }
 }
 
