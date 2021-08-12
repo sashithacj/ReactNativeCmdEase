@@ -7,7 +7,16 @@ React native project manager written in C#
 
 ![alt text](https://raw.githubusercontent.com/sashithacj/ReactNativeManagerEase/master/ss_v5.png)
 
-## Features
+## What's new in v8?
+* When any error occured, you can just simply right click on the console and search google or copy the error message.
+* Performance improvements
+* Removed timing feature
+
+## What's to be next?
+* Speech commands to do the tasks
+* GIT repo management for the projects
+
+## General Features
 * Check if NodeJS, NPM, Yarn, react-native-cli, Java & Android SDK installed.
 * Check & displays Java directory in Path environment variable.
 * Check & displays JAVA_HOME, ANDROID_HOME environment variables.
